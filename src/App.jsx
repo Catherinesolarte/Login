@@ -25,7 +25,7 @@ function App() {
         {/* <Login message={message} setAlert={setAlert} /> */}
       </div>
       <footer className="text-center mt-5 bg-dark text-white py-3">
-        © 2025 - Pizzería Mamma Mía - Todos los derechos reservados Catherine Solarte
+        © 2024 - Pizzería Mamma Mía - Todos los derechos reservados Catherine Solarte
       </footer>
       
     </div>
