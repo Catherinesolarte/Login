@@ -1,85 +1,90 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
-import SocialButton from "../utils/SocialButton";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import React from "react";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPizzaSlice,
+  faLockOpen,
+  faLock,
+  faKey,
+} from "@fortawesome/free-solid-svg-icons";
+import Header from "./Header";
 
-
-const Navbar = () => {
-  // Estado para el carrito, 
-  const [cart, setCart] = useState([
-    { id: 1, name: "Pizza Margherita", price: 10 },
-    { id: 2, name: "Pizza Pepperoni", price: 12 },
-    { id: 3, name: "Pizza Hawaiana", price: 11 }
-  ]);
-
-  // Función para calcular el total del carrito
-  const getTotalCart = () => {
-    return cart.reduce((total, item) => total + item.price, 0); // Suma de los precios
-  };
-
-  // Función para formatear el total (por ejemplo, como moneda)
-  const monedaLocal = (amount) => {
-    return `$${amount.toFixed(2)}`; // Formatear como moneda
-  };
+const Navbar_Cmp = () => {
+  const number = 19190;
+  const total = Intl.NumberFormat("es-CL").format(number);
+  const token = true; // Assuming user is logged in
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container">
-        {/* Nombre/ enlaces a la izquierda */}
-        <div className="d-flex align-items-center">
-          <a className="navbar-brand" href="#">
-            Pizzería Mamma Mía!
-          </a>
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                🍕 Home
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                🔐 Login
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                🔐 Register
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Button social a la izq */}
-        <div className="d-flex align-items-center">
-          {/* Button social */}
-          <ul className="navbar-nav mb-2 mb-lg-0 d-flex gap-2">
-            <li className="nav-item">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon icon={faFacebook} />
-              </a>
-            </li>
-            <li className="nav-item">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon icon={faGithub} />
-              </a>
-            </li>
-            <li className="nav-item">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon icon={faLinkedin} />
-              </a>
-            </li>
-          </ul>
-
-          {/* Boton carrito */}
-          <Link to="/carrito" className="btn btn-primary ms-3">
-            🛒 Total: {monedaLocal(getTotalCart())}
-          </Link>
-        </div>
-      </div>
-    </nav>
+    <div>
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        className="estilo_navbar_navbar bg-black"
+      >
+        <Container className="bg-black responsive-navbar-nav">
+          <Navbar.Brand href="#home">
+            <span className="text-white">Pizzería MammaMia</span>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              {/* Home link */}
+              <Nav.Link href="#features">
+                <FontAwesomeIcon
+                  icon={faPizzaSlice}
+                  style={{ color: "#FFD43B" }}
+                />
+                <span className="text-white"> Home</span>
+              </Nav.Link>
+              {/* Login link */}
+              <Nav.Link href="#login">
+                {token ? (
+                  <FontAwesomeIcon
+                    icon={faLockOpen}
+                    style={{ color: "#FFD43B" }}
+                  />
+                ) : (
+                  <FontAwesomeIcon icon={faKey} style={{ color: "#FFD43B" }} />
+                )}
+                <span className="text-white">
+                  {token ? " Login" : " Register"}
+                </span>
+              </Nav.Link>
+              {/* Register link */}
+              <Nav.Link href="#register">
+                {token ? (
+                  <FontAwesomeIcon icon={faLock} style={{ color: "#FFD43B" }} />
+                ) : (
+                  <FontAwesomeIcon icon={faKey} style={{ color: "#FFD43B" }} />
+                )}
+                <span className="text-white">
+                  {token ? " Register" : " Login"}
+                </span>
+              </Nav.Link>
+            </Nav>
+            <Nav>
+              {/* Total price display */}
+              <Nav.Link href="#total">
+                <span
+                  className="total_nav"
+                  style={{
+                    color: "#00FFFF",
+                    border: "2px solid #00FFFF",
+                    padding: "5px 10px",
+                  }}
+                >
+                  🛒Total: ${total}
+                </span>
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <Header />
+    </div>
   );
 };
 
-export default Navbar;
-
+export default Navbar_Cmp;
